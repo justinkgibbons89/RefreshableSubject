@@ -24,7 +24,7 @@ public class RefreshableSubject<T>: Subject {
 		Swift.print("Refreshing...")
 	}
 
-	internal init(service: RefreshableService) {
+	public init(service: RefreshableService) {
 		self.service = service
 	}
 
