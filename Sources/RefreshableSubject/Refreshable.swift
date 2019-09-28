@@ -3,6 +3,6 @@ import Foundation
 /** 
 	A protocol for refreshable conformance.
 */
-public protocol Refreshable {
+public protocol RefreshableService {
 	func refresh() -> Void
 }

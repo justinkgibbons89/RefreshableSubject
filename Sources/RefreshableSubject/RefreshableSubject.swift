@@ -17,14 +17,14 @@ import Combine
 public class RefreshableSubject<T>: Subject {
 
 	//MARK: Properties
-	private var subscriptions = [RSSubscription<Output>]()
-	private let service: Refreshable
+	private var subscriptions = [RefreshableSubjectSubscription<Output>]()
+	private let service: RefreshableService
 
 	public func refresh() {
 		Swift.print("Refreshing...")
 	}
 
-	internal init(service: Refreshable) {
+	internal init(service: RefreshableService) {
 		self.service = service
 	}
 
@@ -34,7 +34,7 @@ public class RefreshableSubject<T>: Subject {
 
 	public func receive<S>(subscriber: S) where S:Subscriber, S.Input == Output, S.Failure == Failure {
 		Swift.print("Subscriber received!")
-		let subscription = RSSubscription(publisher: self, subscriber: AnySubscriber(subscriber))
+		let subscription = RefreshableSubjectSubscription(publisher: self, subscriber: AnySubscriber(subscriber))
 		self.subscriptions.append(subscription)
 	}
 

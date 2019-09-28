@@ -8,7 +8,7 @@ import Combine
 	to trigger a refresh. This is exposed through a public `demand:demand` method.
 */
 @available(macOS 10.15, *)
-public class Client<T>: Subscriber {
+public class RefreshableSubjectClient<T>: Subscriber {
 	public typealias Input = T
 	public typealias Failure = Error
 
