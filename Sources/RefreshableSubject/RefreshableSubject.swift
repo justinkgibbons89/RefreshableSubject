@@ -13,7 +13,7 @@ import Combine
 
 	`RefreshableSubject` supports multiple subscriptions.
 */
-@available(macOS 10.15, *)
+@available(iOS 13.0, watchOS 6.0, macOS 10.15, *)
 public class RefreshableSubject<T>: Subject {
 
 	//MARK: Properties

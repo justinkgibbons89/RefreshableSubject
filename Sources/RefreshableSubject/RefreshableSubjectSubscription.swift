@@ -12,7 +12,7 @@ import Combine
 	reference to it. `RefreshableSubject` flows should be customized by implementing a `Refreshable`–conforming service above it, a custom subsciber beneath
 	it, or both.
 */
-@available(macOS 10.15, *)
+@available(iOS 13.0, watchOS 6.0, macOS 10.15, *)
 public class RefreshableSubjectSubscription<Output>: Subscription {
 
 	private var publisher: RefreshableSubject<Output>

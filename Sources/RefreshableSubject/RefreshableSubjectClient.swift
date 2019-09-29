@@ -7,7 +7,7 @@ import Combine
 	`Client` holds a reference to its `Subscription` and calls its `request:demand` method
 	to trigger a refresh. This is exposed through a public `demand:demand` method.
 */
-@available(macOS 10.15, *)
+@available(iOS 13.0, watchOS 6.0, macOS 10.15, *)
 public class RefreshableSubjectClient<T>: Subscriber {
 	public typealias Input = T
 	public typealias Failure = Error
