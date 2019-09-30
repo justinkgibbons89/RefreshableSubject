@@ -21,20 +21,22 @@ public class RefreshableSubject<T>: Subject {
 	private let service: RefreshableService
 
 	public func refresh() {
-		Swift.print("Refreshing...")
+		Swift.print("Subject Refreshing...")
+		service.refresh()
 	}
 
 	public init(service: RefreshableService) {
 		self.service = service
 	}
-
+	
 	//MARK: Publisher Protocol
 	public typealias Output = T
 	public typealias Failure = Error
 
 	public func receive<S>(subscriber: S) where S:Subscriber, S.Input == Output, S.Failure == Failure {
 		Swift.print("Subscriber received!")
-		let subscription = RefreshableSubjectSubscription(publisher: self, subscriber: AnySubscriber(subscriber))
+		let subscription = RefreshableSubjectSubscription(publisher: self, subscriber: AnySubscriber(subscriber)) 
+		subscriber.receive(subscription: subscription)
 		self.subscriptions.append(subscription)
 	}
 
