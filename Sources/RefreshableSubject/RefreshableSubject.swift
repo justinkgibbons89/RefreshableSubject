@@ -1,18 +1,19 @@
 import Foundation
 import Combine
 
-/** 
+/**
 	A subject that can be manually refreshed by its subscriber, as opposed to the imperative
-	updates of `PassthroughSubject`. 
+	updates of `PassthroughSubject`.
 
-	`RefreshableSubject` does not cache the most recent published value as `CurrentValueSubject` 
+	`RefreshableSubject` does not cache the most recent published value as `CurrentValueSubject`
 	does, although this could be implemented by the `Refreshable` service that calls `send.`
 
-	This class is not intended to be subclassed. Instead a service provider should conform to 
+	This class is not intended to be subclassed. Instead a service provider should conform to
 	`Refreshable` and expose a reference to this publisher.
 
 	`RefreshableSubject` supports multiple subscriptions.
 */
+
 @available(iOS 13.0, watchOS 6.0, macOS 10.15, *)
 public class RefreshableSubject<T>: Subject {
 
@@ -20,28 +21,31 @@ public class RefreshableSubject<T>: Subject {
 	private var subscriptions = [RefreshableSubjectSubscription<Output>]()
 	private let service: RefreshableService
 
+	//MARK: Initializer
+	public init(service: RefreshableService) {
+		self.service = service
+	}
+
+	//MARK: Methods
 	public func refresh() {
 		Swift.print("Subject Refreshing...")
 		service.refresh()
 	}
 
-	public init(service: RefreshableService) {
-		self.service = service
-	}
-	
-	//MARK: Publisher Protocol
+	//MARK: Publisher Conformance
 	public typealias Output = T
 	public typealias Failure = Error
 
 	public func receive<S>(subscriber: S) where S:Subscriber, S.Input == Output, S.Failure == Failure {
 		Swift.print("Subscriber received!")
-		let subscription = RefreshableSubjectSubscription(publisher: self, subscriber: AnySubscriber(subscriber)) 
-		subscriber.receive(subscription: subscription)
+		let subscription = RefreshableSubjectSubscription(publisher: self, subscriber: AnySubscriber(subscriber))
 		self.subscriptions.append(subscription)
+		subscriber.receive(subscription: subscription)
 	}
 
-	//MARK: Subject Extension
+	//MARK: Subject Conformance
 	public func send(_ output: Output) {
+		Swift.print("Trying to send to \(subscriptions.count) subscriptions")
 		for subscription in subscriptions {
 			Swift.print("Sending output...")
 			_ = subscription.subscriber.receive(output)
