@@ -1,3 +1,3 @@
 # RefreshableSubject
 
-A description of this package.
+A Combine subject that allows its subscriber to manually request an update.

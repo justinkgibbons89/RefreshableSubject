@@ -4,7 +4,7 @@ import Combine
 /** 
 	A concrete subscription used by `RefreshableSubject`.
 
-	This subscription holds a refernece to both publisher and subscriber, so that published
+	This subscription holds a reference to both publisher and subscriber, so that published
 	data can be pushed downstream to the subscriber, and manual refresh calls can be pushed upstream
 	to the `RefreshableSubject`.
 

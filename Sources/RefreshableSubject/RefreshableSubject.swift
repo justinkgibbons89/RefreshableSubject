@@ -2,8 +2,7 @@ import Foundation
 import Combine
 
 /**
-	A subject that can be manually refreshed by its subscriber, as opposed to the imperative
-	updates of `PassthroughSubject`.
+	A subject that can be manually refreshed by its subscriber.
 
 	`RefreshableSubject` does not cache the most recent published value as `CurrentValueSubject`
 	does, although this could be implemented by the `Refreshable` service that calls `send.`
